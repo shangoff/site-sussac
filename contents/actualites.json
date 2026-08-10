@@ -1,0 +1,22 @@
+{
+  "actualites": [
+    {
+      "titre": "Pêche de l'étang communal",
+      "date": "2026-10-04",
+      "categorie": "Vie locale",
+      "texte": "La commune a réalisé la pêche de son étang avec le concours d'une pisciculture partenaire — un moment fort de la vie locale."
+    },
+    {
+      "titre": "Un nouvel espace multisport",
+      "date": "2026-09-15",
+      "categorie": "Travaux",
+      "texte": "Nivellement, terrassement, puis dalle : le chantier du city-stade a avancé à grands pas, cofinancé par plusieurs partenaires publics."
+    },
+    {
+      "titre": "Diagnostic des cloches",
+      "date": "2026-08-20",
+      "categorie": "Patrimoine",
+      "texte": "Une entreprise spécialisée est intervenue pour contrôler le système, dresser un état des lieux et sécuriser le clocher."
+    }
+  ]
+}
