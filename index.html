@@ -101,31 +101,8 @@
     .nav-links a.cta{text-align:center;margin-top:6px}
     .burger{display:block}
   }
-/* ---- Menu déroulant ---- */
-  .nav-item.has-sub{position:relative}
-  .nav-sub-toggle{display:flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;
-    font-family:inherit;font-size:15px;font-weight:500;color:var(--ink-soft);
-    padding:9px 14px;border-radius:9px;transition:color .2s,background .2s}
-  .nav-sub-toggle:hover{color:var(--forest);background:rgba(110,138,94,.14)}
-  .nav-sub-toggle .chev{transition:transform .2s}
-  .nav-sub{position:absolute;top:100%;left:0;min-width:230px;background:var(--paper-2);
-    border:1px solid var(--line);border-radius:12px;box-shadow:0 20px 40px -24px rgba(32,38,31,.4);
-    padding:8px;display:none;flex-direction:column;gap:2px;z-index:120}
-  .nav-sub a{white-space:nowrap;padding:10px 12px;border-radius:8px;font-size:14.5px;
-    color:var(--ink-soft);text-decoration:none;font-weight:500}
-  .nav-sub a:hover{color:var(--forest);background:rgba(110,138,94,.14)}
-  .has-sub:hover .nav-sub,.has-sub:focus-within .nav-sub{display:flex}
-  .has-sub:hover .chev{transform:rotate(180deg)}
 
-  @media(max-width:900px){
-    .nav-item.has-sub{width:100%}
-    .nav-sub-toggle{width:100%;justify-content:space-between;font-size:17px;padding:14px;border-radius:10px}
-    .nav-sub{position:static;box-shadow:none;border:none;background:transparent;padding:2px 0 6px 12px;display:none}
-    .has-sub:hover .nav-sub{display:none}          /* pas de survol sur mobile */
-    .has-sub.open .nav-sub{display:flex}           /* ouverture au clic */
-    .has-sub.open .chev{transform:rotate(180deg)}
-    .nav-sub a{padding:12px;font-size:16px}
-  }  /* ---------- Hero ---------- */
+  /* ---------- Hero ---------- */
   .hero{position:relative;padding-top:74px;overflow:hidden;background:linear-gradient(180deg,#DDE6E4 0%,#E7E9DE 62%,var(--paper) 100%)}
   .hero-scene{position:absolute;inset:0;z-index:0}
   .hero-scene svg{width:100%;height:100%;display:block}
@@ -373,39 +350,13 @@
       <span>Sussac<small>Haute-Vienne · 87130</small></span>
     </a>
     <nav class="nav-links" id="menu" aria-label="Navigation principale">
-
-  <div class="nav-item has-sub">
-    <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-haspopup="true">
-      La commune
-      <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-    </button>
-    <div class="nav-sub">
-      <a href="#commune">Présentation</a>
+      <a href="#commune">La commune</a>
+      <a href="#mairie">Mairie &amp; démarches</a>
       <a href="#vie">Vie locale</a>
-      <a href="a-proximite.html">À proximité</a>
-      <a href="travaux.html">Travaux</a>
-    </div>
-  </div>
-
-  <div class="nav-item has-sub">
-    <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-haspopup="true">
-      La mairie
-      <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-    </button>
-    <div class="nav-sub">
-      <a href="#mairie">Horaires &amp; démarches</a>
-      <a href="equipe.html">Équipe municipale</a>
-      <a href="tarifs.html">Tarifs municipaux</a>
-      <a href="infos-pratiques.html">Infos pratiques</a>
-      <a href="infos-utiles.html">Infos utiles</a>
-      <a href="sante.html">Santé</a>
-    </div>
-  </div>
-  <a href="vie-associative.html">Vie associative</a>
-  <a href="reservations.html">Gîtes</a>
-  <a href="#actualites">Actualités</a>
-  <a href="#contact" class="cta">Contact</a>
-</nav>
+      <a href="reservations.html">Gîtes</a>
+      <a href="#actualites">Actualités</a>
+      <a href="#contact" class="cta">Nous contacter</a>
+    </nav>
     <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
@@ -415,9 +366,7 @@
 <main id="contenu">
 
 <!-- ============ HERO ============ -->
-
 <section class="hero" id="accueil">
-  <!--
   <div class="hero-scene" aria-hidden="true">
     <svg viewBox="0 0 1440 760" preserveAspectRatio="xMidYMax slice">
       <path d="M0 300 C 220 250 360 300 560 280 C 760 260 900 305 1120 275 C 1280 252 1380 285 1440 275 L1440 760 L0 760Z" fill="#B9C7BE"/>
@@ -451,15 +400,11 @@
       </g>
     </svg>
   </div>
--->
-
 
   <div class="wrap hero-inner">
     <span class="eyebrow reveal">Nouvelle-Aquitaine · Communauté de communes Briance Combade</span>
     <h1 class="reveal">Bienvenue à <em>Sussac</em></h1>
     <p class="lede reveal">Un village du Limousin, posé entre forêts et rivière, au fil de la Combade. 347 habitants, quelques dizaines de kilomètres carrés de nature — et une mairie à votre service.</p>
-    <div class="wrap"style="padding-top:98px">
-      <img src="images/plan-eau-couchee-soleil.jpg" alt="plan-eau-couchee-soleil" style="width:auto;height: auto;border-radius: 16px;display: block;"></div>
     <div class="hero-actions reveal">
       <a class="btn btn-primary" href="#mairie">Horaires &amp; démarches
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -533,7 +478,7 @@
       <div class="card reveal">
         <h3><span class="dot"></span>Horaires de la mairie</h3>
         <ul class="hours">
-          <li><span class="d">Lundi</span><span class="h">8h30-12h30 13hh · 13h-16h</span></li>
+          <li><span class="d">Lundi</span><span class="h">8h30-12h30 · 13h-16h</span></li>
           <li><span class="d">Mardi</span><span class="h">8h30-12h30 · 13h-16h</span></li>
           <li><span class="d">Mercredi</span><span class="h closed">Fermé</span></li>
           <li><span class="d">Jeudi</span><span class="h">8h30-12h30 · 13h-16h</span></li>
@@ -610,42 +555,42 @@
     <div class="tiles">
 
       <article class="tile reveal">
-        <div class="img"><img src="images/plan-eau-plage.jpg" style="height:320px;width: 450px;object-fit: cover"></div>
+        <div class="tile-art"><svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#CFE0DC"/><path d="M0 96 C60 78 120 104 180 90 C240 78 280 100 300 92V150H0Z" fill="#7FB1AC"/><path d="M0 108 C80 96 150 118 220 104 C260 96 290 110 300 106V150H0Z" fill="#5A8B87"/><circle cx="235" cy="44" r="20" fill="#EFE7C9"/></svg></div>
         <div class="tile-body"><span class="eyebrow">Nature</span><h3>Le plan d'eau</h3><p>Étang, plage, buvette/snack et aire de jeux : le rendez-vous des beaux jours, entre baignade, pêche et promenades au fil de la Combade.</p></div>
       </article>
 
       <article class="tile reveal">
-        <div class="img"><img src="images/cepes.jpg" style="height:320px;width: 450px;object-fit: cover"></div>
+        <div class="tile-art"><svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#DDE7D3"/><path d="M0 150V70l24 20 20-30 22 34 26-40 24 42 28-28 22 34 26-24 24 36 28-30V150Z" fill="#6E8A5E"/><path d="M0 150V96l30 18 34-24 30 30 34-22 32 28 36-24 34 28V150Z" fill="#4A6B3E"/></svg></div>
         <div class="tile-body"><span class="eyebrow">Randonnée</span><h3>Sentiers &amp; forêts</h3><p>Un sentier de grande randonnée a été balisé dans le Pays Monts et Barrages : une boucle de 175 km qui unit différents territoires, dont Saint-Léonard-de-Noblat, le lac de Vassivière ou encore le Mont-Gargan.</p></div>
       </article>
 
       <article class="tile reveal">
-        <div class="img"><img src="images/eglise-sussac.jpg" style="height:320px;width: 450px;object-fit: cover"></div>
-        <div class="tile-body"><span class="eyebrow">Patrimoine</span><h3>L'église Saint-Pardoux-Saint-Martin</h3><p>Cœur du bourg, l'église et son clocher font l'objet de soins attentifs.</p></div>
+        <div class="tile-art"><svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#D9DCCF"/><rect x="120" y="44" width="60" height="80" fill="#3A5732"/><path d="M112 44 L150 16 L188 44Z" fill="#2A4124"/><rect x="144" y="4" width="12" height="20" fill="#2A4124"/><path d="M140 -2 L150 -14 L160 -2Z" fill="#2A4124"/><circle cx="150" cy="70" r="8" fill="#EFE7C9"/></svg></div>
+        <div class="tile-body"><span class="eyebrow">Patrimoine</span><h3>L'église Saint-Pardoux-Saint-Martin</h3><p>Cœur du bourg, l'église et son clocher font l'objet de soins attentifs : diagnostic complet, consolidation, restauration de la nef et assainissement extérieur.</p></div>
       </article>
 
       <article class="tile reveal">
-        <div class="images"><img src=""></div>
+        <div class="tile-art"><svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#E2E0D2"/><rect x="40" y="40" width="220" height="80" rx="6" fill="#6E8A5E"/><rect x="52" y="52" width="196" height="56" rx="4" fill="#4A6B3E"/><circle cx="150" cy="80" r="16" fill="none" stroke="#EFE7C9" stroke-width="3"/><path d="M150 64v32M134 80h32" stroke="#EFE7C9" stroke-width="3"/></svg></div>
         <div class="tile-body"><span class="eyebrow">Équipement</span><h3>Le city-stade</h3><p>Nouvel espace multisport pour les jeunes et les familles, aménagé avec le soutien du Département et de l'Agence nationale du sport.</p></div>
       </article>
 
       <article class="tile reveal">
-        <div class="img"><img src="images/association.png" style="height:320px;width: 450px;object-fit: cover"></div> 
+        <div class="tile-art"><svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#D7DECF"/><g fill="#8B5E7C"><circle cx="70" cy="100" r="10"/><circle cx="150" cy="86" r="12"/><circle cx="230" cy="102" r="10"/><circle cx="110" cy="118" r="8"/><circle cx="196" cy="120" r="8"/></g><path d="M0 130 C80 118 220 118 300 130V150H0Z" fill="#4A6B3E"/></svg></div>
         <div class="tile-body"><span class="eyebrow">Vie associative</span><h3>Le coin des associations</h3><p>La vie associative se compose du club du 3ᵉ âge « Les Sapins Verts », du Yoga et du foot « L'Étoile Sportive Sussacoise ».</p></div>
       </article>
 
       <article class="tile reveal">
-        <div class="img"><img src="images/mont-gargan.jpg" style="height:320px;width: 450px;object-fit: cover"></div>
+        <div class="tile-art"><svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#DAE0D2"/><g stroke="#4A6B3E" stroke-width="2" fill="none"><circle cx="150" cy="75" r="46"/><path d="M104 75h92M150 29v92M118 42l64 66M182 42l-64 66"/></g><circle cx="150" cy="75" r="6" fill="#8B5E7C"/></svg></div>
         <div class="tile-body"><span class="eyebrow">Alentours</span><h3>Communes voisines</h3><p>Saint-Gilles-les-Forêts, Sainte-Anne-Saint-Priest, La Croisille-sur-Briance, Domps, Eymoutiers, Châteauneuf-la-Forêt.</p></div>
       </article>
 
       <article class="tile reveal">
-        <div class="img"><img src="images/boite-a-livres.jpg" style="height:320px;width: 450px;object-fit: cover"></div>
+        <div class="tile-art"><svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#E7E2D4"/><rect x="112" y="40" width="76" height="70" rx="4" fill="#6E8A5E"/><rect x="120" y="48" width="60" height="10" rx="2" fill="#EFE7C9"/><rect x="120" y="64" width="60" height="10" rx="2" fill="#EFE7C9"/><rect x="120" y="80" width="60" height="10" rx="2" fill="#EFE7C9"/></svg></div>
         <div class="tile-body"><span class="eyebrow">Culture</span><h3>Boîte à livres</h3><p>Une boîte à livres est à votre disposition sur la place. N'hésitez pas à prendre un ou plusieurs ouvrages qui vous plaisent, et à en laisser en échange si vous le souhaitez.</p></div>
       </article>
 
       <article class="tile reveal">
-        <div class="img"><img src="images/plan-eau-gites.jpg" style="height:320px;width: 450px;object-fit: cover"></div>
+        <div class="tile-art"><svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#DCE3D3"/><path d="M60 110V70l40-26 40 26v40Z" fill="#4A6B3E"/><path d="M92 44 L140 44 L100 70Z" fill="#3A5732"/><rect x="150" y="66" width="90" height="44" fill="#6E8A5E"/><path d="M150 66 L195 44 L240 66Z" fill="#4A6B3E"/></svg></div>
         <div class="tile-body"><span class="eyebrow">Locations</span><h3>Salle des fêtes &amp; gîtes communaux</h3><p>Une salle des fêtes et un chapiteau sont disponibles à la location. Cinq gîtes communaux sont également louables toute l'année.</p></div>
       </article>
 
@@ -654,8 +599,6 @@
 </section>
 
 <!-- ============ ACTUALITÉS ============ -->
-
-<div class="note"></div>
 <section class="section mairie" id="actualites">
   <div class="wrap">
     <div class="section-head reveal">
@@ -663,25 +606,8 @@
       <h2>La vie de la commune</h2>
       <p>Les dernières nouvelles du bourg.</p>
     </div>
-    <div class="news">
-      <article class="post reveal">
-        <span class="date">Automne · Sussac</span>
-        <h3>Pêche de l'étang communal</h3>
-        <p>La commune a réalisé la pêche de son étang avec le concours d'une pisciculture partenaire — un moment fort de la vie locale.</p>
-        <span class="tag">Vie locale</span>
-      </article>
-      <article class="post reveal">
-        <span class="date">Chantier · City-stade</span>
-        <h3>Un nouvel espace multisport</h3>
-        <p>Nivellement, terrassement, puis dalle : le chantier du city-stade a avancé à grands pas, cofinancé par plusieurs partenaires publics.</p>
-        <span class="tag">Travaux</span>
-      </article>
-      <article class="post reveal">
-        <span class="date">Patrimoine · Église</span>
-        <h3>Diagnostic des cloches</h3>
-        <p>Une entreprise spécialisée est intervenue pour contrôler le système, dresser un état des lieux et sécuriser le clocher.</p>
-        <span class="tag">Patrimoine</span>
-      </article>
+    <div class="news" id="news-list">
+      <!-- Les actualités sont chargées automatiquement depuis le CMS (content/actualites.json) -->
     </div>
 
     <div class="agenda reveal">
@@ -689,20 +615,8 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
         <h3>Agenda</h3>
       </div>
-      <div class="ev">
-        <div class="when"><b>14/08</b></div>
-        <div class="what"><strong>Bal populaire</strong><span>19h30</span></div>
-        <div class="place">Esplanade du Lac</div>
-      </div>
-      <div class="ev">
-        <div class="when"><b>—</b>date</div>
-        <div class="what"><strong>Fête du village</strong><span>Animations, buvette, marché de producteurs</span></div>
-        <div class="place">Plan d'eau</div>
-      </div>
-      <div class="ev">
-        <div class="when"><b>—</b>date</div>
-        <div class="what"><strong>Après-midi pêche</strong><span>Ouvert à toutes et tous</span></div>
-        <div class="place">Étang</div>
+      <div id="agenda-list">
+        <!-- Les événements sont chargés automatiquement depuis le CMS (content/agenda.json) -->
       </div>
     </div>
   </div>
@@ -760,19 +674,18 @@
         <p>Commune de Sussac · Haute-Vienne · Nouvelle-Aquitaine. Au fil de la Combade, entre forêts et landes du Limousin.</p>
       </div>
       <div class="foot-col">
-  <h4>La commune</h4>
-  <a href="#commune">Présentation</a>
-  <a href="equipe.html">Équipe municipale</a>
-  <a href="travaux.html">Travaux</a>
-  <a href="#actualites">Actualités &amp; agenda</a>
-</div>
-<div class="foot-col">
-  <h4>Services &amp; infos</h4>
-  <a href="tarifs.html">Tarifs municipaux</a>
-  <a href="infos-pratiques.html">Infos pratiques</a>
-  <a href="reservations.html">Gîtes communaux</a>
-  <a href="a-proximite.html">À proximité</a>
-</div>
+        <h4>La commune</h4>
+        <a href="#commune">Présentation</a>
+        <a href="#vie">Vie locale &amp; tourisme</a>
+        <a href="reservations.html">Gîtes communaux</a>
+        <a href="#actualites">Actualités &amp; agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <a href="#mairie">Mairie &amp; horaires</a>
+        <a href="#mairie">Démarches en ligne</a>
+        <a href="#contact">Nous contacter</a>
+      </div>
     </div>
     <div class="foot-bottom">
       <span>© <span id="year"></span> Mairie de Sussac — Tous droits réservés</span>
@@ -964,6 +877,64 @@ function flWeather(){
       +'Voir sur <a href="https://meteofrance.com/previsions-meteo-france/sussac/87130" target="_blank" rel="noopener">Météo-France</a>.</p>';
   });
 }
+
+/* ======================================================================
+   ACTUALITÉS & AGENDA — chargés automatiquement depuis le CMS
+   (fichiers content/actualites.json et content/agenda.json)
+   ====================================================================== */
+(function(){
+  var MOIS_COURT=['jan.','fév.','mars','avr.','mai','juin','juil.','août','sep.','oct.','nov.','déc.'];
+
+  function frDate(iso){
+    if(!iso) return null;
+    var p=String(iso).split('-'); if(p.length<3) return null;
+    return { jour:parseInt(p[2],10), mois:MOIS_COURT[(parseInt(p[1],10)||1)-1], annee:p[0],
+             court:(p[2]+'/'+p[1]) };
+  }
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // ---- Actualités ----
+  fetch('content/actualites.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(data){
+    var list=(data&&data.actualites)||[];
+    var box=document.getElementById('news-list'); if(!box) return;
+    // tri par date décroissante (plus récent d'abord)
+    list.sort(function(a,b){return String(b.date||'').localeCompare(String(a.date||''));});
+    if(!list.length){ box.innerHTML=''; return; }
+    box.innerHTML=list.map(function(a){
+      var d=frDate(a.date);
+      var dateLabel=d?(d.jour+' '+d.mois+' '+d.annee):'';
+      var cat=a.categorie?'<span class="tag">'+esc(a.categorie)+'</span>':'';
+      var photo=a.image?'<img src="'+esc(a.image)+'" alt="'+esc(a.titre)+'" style="width:100%;height:170px;object-fit:cover;border-radius:10px;margin-bottom:14px">':'';
+      return '<article class="post reveal in">'+photo+
+        '<span class="date">'+esc(dateLabel)+'</span>'+
+        '<h3>'+esc(a.titre)+'</h3>'+
+        '<p>'+esc(a.texte).replace(/\n/g,'<br>')+'</p>'+cat+'</article>';
+    }).join('');
+  }).catch(function(){ /* silencieux : si le fichier manque, la zone reste vide */ });
+
+  // ---- Agenda ----
+  fetch('content/agenda.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(data){
+    var list=(data&&data.evenements)||[];
+    var box=document.getElementById('agenda-list'); if(!box) return;
+    // futurs d'abord, triés par date croissante ; les sans-date à la fin
+    list.sort(function(a,b){
+      var da=String(a.date||'9999'), db=String(b.date||'9999');
+      return da.localeCompare(db);
+    });
+    if(!list.length){ box.innerHTML='<div class="ev"><div class="what"><span>Aucun événement à venir pour le moment.</span></div></div>'; return; }
+    box.innerHTML=list.map(function(e){
+      var d=frDate(e.date);
+      var when= d ? ('<b>'+d.court+'</b>') : '<b>—</b>';
+      var heure=e.heure?'<span>'+esc(e.heure)+'</span>':'';
+      var details=e.details?'<span>'+esc(e.details)+'</span>':'';
+      var lieu=e.lieu?'<div class="place">'+esc(e.lieu)+'</div>':'<div class="place"></div>';
+      return '<div class="ev">'+
+        '<div class="when">'+when+'</div>'+
+        '<div class="what"><strong>'+esc(e.titre)+'</strong>'+heure+details+'</div>'+
+        lieu+'</div>';
+    }).join('');
+  }).catch(function(){ /* silencieux */ });
+})();
 </script>
 </body>
 </html>
