@@ -1,0 +1,25 @@
+{
+  "evenements": [
+    {
+      "titre": "Bal populaire",
+      "date": "2026-08-14",
+      "heure": "19h30",
+      "lieu": "Esplanade du Lac",
+      "details": ""
+    },
+    {
+      "titre": "Fête du village",
+      "date": "2026-09-06",
+      "heure": "",
+      "lieu": "Plan d'eau",
+      "details": "Animations, buvette, marché de producteurs"
+    },
+    {
+      "titre": "Après-midi pêche",
+      "date": "",
+      "heure": "",
+      "lieu": "Étang",
+      "details": "Ouvert à toutes et tous"
+    }
+  ]
+}
