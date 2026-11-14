@@ -146,15 +146,100 @@
 </head>
 <body>
 
+<style id="topnav-component">
+  .nav-links{display:flex;gap:4px;align-items:center}
+  .nav-links a{text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-soft);padding:9px 14px;border-radius:9px;transition:color .2s,background .2s}
+  .nav-links a:hover{color:var(--forest);background:rgba(110,138,94,.14)}
+  .nav-links a.cta{background:var(--forest);color:var(--paper-2);padding:9px 18px}
+  .nav-links a.cta:hover{background:var(--forest-deep);color:#fff}
+  .burger{display:none;background:none;border:1px solid var(--line);border-radius:9px;padding:9px 11px;cursor:pointer;color:var(--ink)}
+  .burger svg{display:block}
+  .nav-item.has-sub{position:relative}
+  .nav-sub-toggle{display:flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;font-family:inherit;font-size:15px;font-weight:500;color:var(--ink-soft);padding:9px 14px;border-radius:9px;transition:color .2s,background .2s}
+  .nav-sub-toggle:hover{color:var(--forest);background:rgba(110,138,94,.14)}
+  .nav-sub-toggle .chev{transition:transform .2s}
+  .nav-sub{position:absolute;top:100%;left:0;min-width:230px;background:var(--paper-2);border:1px solid var(--line);border-radius:12px;box-shadow:0 20px 40px -24px rgba(32,38,31,.4);padding:8px;display:none;flex-direction:column;gap:2px;z-index:120}
+  .nav-sub a{white-space:nowrap;padding:10px 12px;border-radius:8px;font-size:14.5px;color:var(--ink-soft);text-decoration:none;font-weight:500}
+  .nav-sub a:hover{color:var(--forest);background:rgba(110,138,94,.14)}
+  .has-sub:hover .nav-sub,.has-sub:focus-within .nav-sub{display:flex}
+  .has-sub:hover .chev{transform:rotate(180deg)}
+  @media(max-width:900px){
+    .nav-links{position:fixed;inset:66px 0 auto 0;flex-direction:column;align-items:stretch;gap:2px;background:var(--paper-2);border-bottom:1px solid var(--line);padding:14px 18px 22px;transform:translateY(-130%);transition:transform .35s cubic-bezier(.4,0,.2,1);box-shadow:0 20px 40px -24px rgba(32,38,31,.4);z-index:49}
+    .nav-links.open{transform:translateY(0)}
+    .nav-links a{padding:14px;font-size:17px;border-radius:10px}
+    .nav-links a.cta{text-align:center;margin-top:6px}
+    .burger{display:block}
+    .nav-item.has-sub{width:100%}
+    .nav-sub-toggle{width:100%;justify-content:space-between;font-size:17px;padding:14px;border-radius:10px}
+    .nav-sub{position:static;box-shadow:none;border:none;background:transparent;padding:2px 0 6px 12px;display:none}
+    .has-sub:hover .nav-sub{display:none}
+    .has-sub.open .nav-sub{display:flex}
+    .has-sub.open .chev{transform:rotate(180deg)}
+    .nav-sub a{padding:12px;font-size:16px}
+  }
+</style>
 <header class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="index.html">
       <img src="images/blason-sussac.jpg" alt="Blason de Sussac" style="width:32px;height:32px;border-radius:5px;object-fit:contain">
       <span>Sussac<small>Haute-Vienne · 87130</small></span>
     </a>
-    <a class="nav-back" href="index.html">← Retour au site</a>
+    <nav class="nav-links" id="menu" aria-label="Navigation principale">
+      <div class="nav-item has-sub">
+        <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-haspopup="true">La commune
+          <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-sub">
+          <a href="index.html#commune">Présentation</a>
+          <a href="index.html#vie">Vie locale</a>
+          <a href="a-proximite.html">À proximité</a>
+          <a href="travaux.html">Travaux</a>
+        </div>
+      </div>
+      <div class="nav-item has-sub">
+        <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-haspopup="true">La mairie
+          <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-sub">
+          <a href="index.html#mairie">Horaires &amp; démarches</a>
+          <a href="equipe.html">Équipe municipale</a>
+          <a href="tarifs.html">Tarifs municipaux</a>
+          <a href="infos-pratiques.html">Infos pratiques</a>
+          <a href="infos-utiles.html">Infos utiles</a>
+          <a href="sante.html">Santé</a>
+        </div>
+      </div>
+      <a href="vie-associative.html">Vie associative</a>
+      <a href="reservations.html">Gîtes</a>
+      <a href="index.html#actualites">Actualités</a>
+      <a href="index.html#contact" class="cta">Contact</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
   </div>
 </header>
+<script id="topnav-js">
+(function(){
+  var burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  if(burger&&menu){
+    burger.addEventListener('click',function(){
+      var open=menu.classList.toggle('open');
+      burger.setAttribute('aria-expanded',open);
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){ menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); });
+    });
+    menu.querySelectorAll('.nav-sub-toggle').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var item=btn.parentElement;
+        var open=item.classList.toggle('open');
+        btn.setAttribute('aria-expanded',open);
+      });
+    });
+  }
+})();
+</script>
 
 <section class="hero">
   <div class="wrap">
