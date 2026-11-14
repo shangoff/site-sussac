@@ -1,13 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Administration — Site de Sussac</title>
+  <title>Sussac — Administration du site</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Public+Sans:wght@400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+  <style>
+  /* ============ Thème « Sussac » pour Decap CMS ============ */
+  #nc-root, #nc-root input, #nc-root textarea, #nc-root button, #nc-root select{ font-family:'Public Sans',system-ui,sans-serif !important; }
+  #nc-root, body { background:#ECEDE4 !important; }
+  [class*="AppMainContainer"], [class*="CollectionMain"], [class*="CollectionContainer"], [class*="EditorContainer"]{ background:transparent !important; }
+
+  /* ---------- Barre du haut (liste) ---------- */
+  [class*="AppHeader"]{ background:#2A4124 !important; box-shadow:0 3px 16px -8px rgba(0,0,0,.55) !important; }
+  [class*="AppHeaderContent"]{ background:transparent !important; display:flex !important; align-items:center !important; }
+  [class*="AppHeaderContent"]::before{
+    content:""; width:32px; height:32px; margin:0 14px 0 0; flex:0 0 32px;
+    background:url(/images/blason-sussac.jpg) center/contain no-repeat; border-radius:6px;
+  }
+  [class*="AppHeaderNavLink"]{ color:#C9D4C1 !important; font-weight:600 !important; }
+  [class*="AppHeaderNavLink"]:hover{ color:#fff !important; background:rgba(255,255,255,.10) !important; }
+  [class*="AppHeaderNavLink"] svg{ color:inherit !important; }
+  [class*="AppHeaderButton"], [class*="AppHeaderTestRepoIndicator"], [class*="AppHeaderActions"]{ color:#C9D4C1 !important; }
+
+  /* ---------- Colonne Collections ---------- */
+  [class*="SidebarContainer"]{ background:#F6F6F0 !important; border:1px solid #D7D8CC !important; border-radius:16px !important; box-shadow:0 10px 30px -22px rgba(32,38,31,.4) !important; }
+  [class*="SidebarHeading"]{ font-family:'Fraunces',Georgia,serif !important; font-weight:600 !important; color:#20261F !important; }
+  [class*="SidebarNavLink"]{ color:#454F42 !important; border-radius:10px !important; border-left:3px solid transparent !important; }
+  [class*="SidebarNavLink"]:hover{ background:rgba(110,138,94,.14) !important; color:#2A4124 !important; }
+  [class*="SidebarNavLink"][class*="-active"]{ background:rgba(110,138,94,.18) !important; color:#2A4124 !important; border-left-color:#3A5732 !important; }
+  [class*="SidebarNavLink"] svg, [class*="IconWrapper"] svg{ color:#6E8A5E !important; }
+
+  /* ---------- Cartes ---------- */
+  [class*="ListCard"], [class*="ListCardLink"]{ background:#F6F6F0 !important; border:1px solid #D7D8CC !important; border-radius:12px !important; }
+  [class*="ListCardTitle"]{ color:#20261F !important; font-weight:600 !important; }
+  [class*="CollectionTopContainer"]{ background:#F6F6F0 !important; border:1px solid #D7D8CC !important; border-radius:14px !important; }
+  [class*="CollectionTopHeading"]{ font-family:'Fraunces',Georgia,serif !important; color:#20261F !important; }
+  [class*="SearchInput"], [class*="SearchContainer"] input{ border-radius:10px !important; }
+
+  /* ---------- Boutons verts (primaires) ---------- */
+  button[class*="-default-default-"]:not([class*="-gray-"]):not([class*="-disabled-"]):not([class*="ToolbarButton"]),
+  button[class*="-teal-"], [class*="PublishButton"]{
+    background:#3A5732 !important; border-color:#3A5732 !important; color:#fff !important;
+  }
+
+  /* ---------- Barre d'édition (verte comme la liste) ---------- */
+  [class*="ToolbarContainer"]{ background:#2A4124 !important; border-bottom:none !important; box-shadow:0 3px 16px -8px rgba(0,0,0,.55) !important; }
+  [class*="ToolbarSectionBackLink"], [class*="BackCollection"], [class*="ToolbarSectionMeta"], [class*="ToolbarSectionMain"]{ color:#C9D4C1 !important; }
+  [class*="BackArrow"]{ color:#fff !important; }
+  [class*="BackStatus"]{ color:#AFC4A3 !important; }
+  [class*="RefreshPreviewButton"]{ color:#C9D4C1 !important; }
+  button[class*="ToolbarButton"]{ background:#F6F6F0 !important; color:#2A4124 !important; border:none !important; font-weight:700 !important; }
+  button[class*="ToolbarButton"]:hover{ background:#ffffff !important; }
+
+  /* ---------- Formulaire ---------- */
+  [class*="ControlPaneContainer"], [class*="ControlContainer"]{ background:transparent !important; }
+  [class*="TopBarContainer"]{ background:#EFEFE7 !important; border-radius:10px 10px 0 0 !important; }
+  [class*="FieldLabel"]{ color:#6E4661 !important; font-family:'Space Mono',monospace !important; font-size:11px !important; letter-spacing:.04em !important; }
+  [class*="AddButton"]{ color:#3A5732 !important; font-weight:700 !important; }
+  </style>
 </head>
 <body>
-  <!-- Interface d'administration (Decap CMS) -->
   <script src="https://unpkg.com/decap-cms@^3.8.0/dist/decap-cms.js"></script>
 </body>
 </html>
