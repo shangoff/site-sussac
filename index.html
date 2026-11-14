@@ -659,47 +659,14 @@
       <h2>La vie de la commune</h2>
       <p>Les dernières nouvelles du bourg.</p>
     </div>
-    <div class="news">
-      <article class="post reveal">
-        <span class="date">Automne · Sussac</span>
-        <h3>Pêche de l'étang communal</h3>
-        <p>La commune a réalisé la pêche de son étang avec le concours d'une pisciculture partenaire — un moment fort de la vie locale.</p>
-        <span class="tag">Vie locale</span>
-      </article>
-      <article class="post reveal">
-        <span class="date">Chantier · City-stade</span>
-        <h3>Un nouvel espace multisport</h3>
-        <p>Nivellement, terrassement, puis dalle : le chantier du city-stade a avancé à grands pas, cofinancé par plusieurs partenaires publics.</p>
-        <span class="tag">Travaux</span>
-      </article>
-      <article class="post reveal">
-        <span class="date">Patrimoine · Église</span>
-        <h3>Diagnostic des cloches</h3>
-        <p>Une entreprise spécialisée est intervenue pour contrôler le système, dresser un état des lieux et sécuriser le clocher.</p>
-        <span class="tag">Patrimoine</span>
-      </article>
-    </div>
+    <div class="news" id="news-list"></div>
 
     <div class="agenda reveal">
       <div class="agenda-head">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
         <h3>Agenda</h3>
       </div>
-      <div class="ev">
-        <div class="when"><b>14/08</b></div>
-        <div class="what"><strong>Bal populaire</strong><span>19h30</span></div>
-        <div class="place">Esplanade du Lac</div>
-      </div>
-      <div class="ev">
-        <div class="when"><b>—</b>date</div>
-        <div class="what"><strong>Fête du village</strong><span>Animations, buvette, marché de producteurs</span></div>
-        <div class="place">Plan d'eau</div>
-      </div>
-      <div class="ev">
-        <div class="when"><b>—</b>date</div>
-        <div class="what"><strong>Après-midi pêche</strong><span>Ouvert à toutes et tous</span></div>
-        <div class="place">Étang</div>
-      </div>
+      <div id="agenda-list"></div>
     </div>
   </div>
 </section>
@@ -960,6 +927,40 @@ function flWeather(){
       +'Voir sur <a href="https://meteofrance.com/previsions-meteo-france/sussac/87130" target="_blank" rel="noopener">Météo-France</a>.</p>';
   });
 }
+</script>
+
+<script>
+(function(){
+  var MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  function frDate(iso){ if(!iso) return ''; var p=String(iso).split('-'); if(p.length<3) return iso; var d=new Date(+p[0],+p[1]-1,+p[2]); if(isNaN(d)) return iso; return d.getDate()+' '+MOIS[d.getMonth()]+' '+d.getFullYear(); }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  var nl=document.getElementById('news-list');
+  if(nl){
+    fetch('content/actualites.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+      var a=(d&&d.actualites)||[];
+      a.sort(function(x,y){return String(y.date||'').localeCompare(String(x.date||''));});
+      if(!a.length){ nl.innerHTML='<p style="color:var(--ink-soft)">Aucune actualité pour le moment.</p>'; return; }
+      nl.innerHTML=a.slice(0,6).map(function(it){
+        var img=it.image?'<img src="'+esc(it.image)+'" alt="" style="width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:12px">':'';
+        var dte=frDate(it.date);
+        return '<article class="post">'+img+(dte?'<span class="date">'+esc(dte)+'</span>':'')+'<h3>'+esc(it.titre)+'</h3><p>'+esc(it.texte)+'</p>'+(it.categorie?'<span class="tag">'+esc(it.categorie)+'</span>':'')+'</article>';
+      }).join('');
+    }).catch(function(){ nl.innerHTML='<p style="color:var(--ink-soft)">Actualités momentanément indisponibles.</p>'; });
+  }
+  var al=document.getElementById('agenda-list');
+  if(al){
+    fetch('content/agenda.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+      var e=(d&&d.evenements)||[];
+      e.sort(function(x,y){ return String(x.date||'9999').localeCompare(String(y.date||'9999')); });
+      if(!e.length){ al.innerHTML='<p style="color:var(--ink-soft);padding:4px 2px">Aucun événement prévu.</p>'; return; }
+      al.innerHTML=e.slice(0,6).map(function(it){
+        var jm='—'; if(it.date){ var p=String(it.date).split('-'); if(p.length>=3) jm=p[2]+'/'+p[1]; }
+        var sub=[]; if(it.heure)sub.push(esc(it.heure)); if(it.details)sub.push(esc(it.details));
+        return '<div class="ev"><div class="when"><b>'+jm+'</b></div><div class="what"><strong>'+esc(it.titre)+'</strong>'+(sub.length?'<span>'+sub.join(' · ')+'</span>':'')+'</div><div class="place">'+esc(it.lieu||'')+'</div></div>';
+      }).join('');
+    }).catch(function(){ al.innerHTML='<p style="color:var(--ink-soft);padding:4px 2px">Agenda momentanément indisponible.</p>'; });
+  }
+})();
 </script>
 
 <!-- ======== BARRE D'ACCESSIBILITÉ ======== -->
