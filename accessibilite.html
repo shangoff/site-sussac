@@ -88,8 +88,13 @@
 </footer>
 
 <!-- ======== BARRE D'ACCESSIBILITÉ ======== -->
-<div class="a11y">
-  <button class="a11y__btn" type="button" onclick="a11yToggle()" aria-haspopup="true" aria-expanded="false" aria-label="Options d'accessibilité">
+<div class="a11y" id="a11y">
+  <div class="a11y__bubble" id="a11yBubble" role="status" hidden>
+    <button class="a11y__bubble-x" type="button" onclick="a11yHideBubble()" aria-label="Fermer">×</button>
+    <strong>Confort de lecture</strong>
+    <span>Agrandir le texte, activer le contraste élevé ou souligner les liens.</span>
+  </div>
+  <button class="a11y__btn" id="a11yBtn" type="button" onclick="a11yToggle()" aria-haspopup="true" aria-expanded="false" aria-label="Options d'accessibilité">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 8v7M8 21l4-6 4 6"/></svg>
     <span>Accessibilité</span>
   </button>
@@ -112,10 +117,21 @@
   html.a11y-contrast, html.a11y-contrast *{background-color:#fff !important;color:#000 !important;border-color:#000 !important}
   html.a11y-contrast a{color:#0033cc !important;text-decoration:underline !important}
   .a11y{position:fixed;left:16px;bottom:16px;z-index:9600;font-family:'Public Sans',system-ui,sans-serif}
-  .a11y__btn{display:flex;align-items:center;gap:8px;background:#2A4124;color:#fff;border:none;border-radius:30px;padding:11px 16px;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 8px 22px -8px rgba(0,0,0,.5)}
-  .a11y__btn svg{width:20px;height:20px}
-  .a11y__btn:hover{filter:brightness(1.08)}
-  .a11y__panel{position:absolute;left:0;bottom:56px;background:#fff;border:1px solid #D7D8CC;border-radius:14px;padding:14px;width:235px;box-shadow:0 16px 40px -16px rgba(0,0,0,.45)}
+  .a11y__btn{position:relative;display:flex;align-items:center;gap:9px;background:#2A4124;color:#fff;border:none;border-radius:30px;padding:12px 18px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 8px 22px -8px rgba(0,0,0,.5)}
+  .a11y__btn svg{width:21px;height:21px}
+  .a11y__btn:hover{filter:brightness(1.1)}
+  .a11y__btn.pulse::after{content:"";position:absolute;inset:-4px;border-radius:34px;border:2px solid #6E8A5E;animation:a11yPulse 1.8s ease-out infinite;pointer-events:none}
+  @keyframes a11yPulse{0%{transform:scale(1);opacity:.85}100%{transform:scale(1.35);opacity:0}}
+  @media(prefers-reduced-motion:reduce){.a11y__btn.pulse::after{animation:none;opacity:0}}
+  .a11y__bubble{position:absolute;left:0;bottom:64px;width:234px;background:#fff;border:1px solid #D7D8CC;border-radius:14px;padding:13px 34px 14px 15px;box-shadow:0 16px 40px -16px rgba(0,0,0,.45);animation:a11yBubbleIn .35s ease-out}
+  .a11y__bubble[hidden]{display:none}
+  .a11y__bubble strong{display:block;color:#2A4124;font-size:14.5px;margin-bottom:3px}
+  .a11y__bubble span{display:block;color:#454F42;font-size:13px;line-height:1.45}
+  .a11y__bubble::after{content:"";position:absolute;left:24px;bottom:-8px;width:14px;height:14px;background:#fff;border-right:1px solid #D7D8CC;border-bottom:1px solid #D7D8CC;transform:rotate(45deg)}
+  .a11y__bubble-x{position:absolute;top:5px;right:7px;background:none;border:none;font-size:20px;line-height:1;color:#7C7A6E;cursor:pointer;padding:2px 7px;border-radius:6px}
+  .a11y__bubble-x:hover{background:#F0F0EA;color:#20261F}
+  @keyframes a11yBubbleIn{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
+  .a11y__panel{position:absolute;left:0;bottom:62px;background:#fff;border:1px solid #D7D8CC;border-radius:14px;padding:14px;width:235px;box-shadow:0 16px 40px -16px rgba(0,0,0,.45)}
   .a11y__panel[hidden]{display:none}
   .a11y__row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:14px;color:#20261F}
   .a11y__grp{display:flex;gap:6px}
@@ -123,7 +139,7 @@
   .a11y__grp button:hover{border-color:#6E8A5E}
   .a11y__opt{display:block;width:100%;text-align:left;background:#F6F6F0;border:1px solid #D7D8CC;border-radius:8px;padding:10px 12px;margin-top:8px;cursor:pointer;font-size:14px;color:#20261F}
   .a11y__opt:hover{border-color:#6E8A5E}
-  @media(max-width:520px){.a11y__btn span{display:none}.a11y__btn{padding:13px;border-radius:50%}}
+  @media(max-width:520px){.a11y__bubble{width:208px}}
 </style>
 <script>
 (function(){
@@ -133,8 +149,20 @@
     if(localStorage.getItem('a11y-contrast')==='1') r.classList.add('a11y-contrast');
     if(localStorage.getItem('a11y-underline')==='1') r.classList.add('a11y-underline');
   }catch(e){}
+  var seen=false; try{seen=localStorage.getItem('a11y-seen')==='1';}catch(e){}
+  if(!seen){
+    window.addEventListener('load',function(){
+      var btn=document.getElementById('a11yBtn'); if(btn) btn.classList.add('pulse');
+      setTimeout(function(){
+        try{ if(localStorage.getItem('a11y-seen')==='1') return; }catch(e){}
+        var b=document.getElementById('a11yBubble'); if(b) b.hidden=false;
+      },1400);
+    });
+  }
 })();
-function a11yToggle(){var p=document.getElementById('a11yPanel');if(p)p.hidden=!p.hidden;}
+function a11ySeen(){try{localStorage.setItem('a11y-seen','1');}catch(e){} var btn=document.getElementById('a11yBtn'); if(btn) btn.classList.remove('pulse'); var b=document.getElementById('a11yBubble'); if(b) b.hidden=true;}
+function a11yHideBubble(){a11ySeen();}
+function a11yToggle(){var p=document.getElementById('a11yPanel');if(p)p.hidden=!p.hidden; var btn=document.getElementById('a11yBtn'); if(btn) btn.setAttribute('aria-expanded', (p&&!p.hidden)?'true':'false'); a11ySeen();}
 function a11yCur(){var r=document.documentElement;return r.classList.contains('a11y-f2')?2:(r.classList.contains('a11y-f1')?1:0);}
 function a11yFont(d){var r=document.documentElement;var n=d===0?0:Math.max(0,Math.min(2,a11yCur()+d));r.classList.remove('a11y-f1','a11y-f2');if(n>0)r.classList.add('a11y-f'+n);try{localStorage.setItem('a11y-font',n);}catch(e){}}
 function a11yContrast(){var r=document.documentElement;var on=r.classList.toggle('a11y-contrast');try{localStorage.setItem('a11y-contrast',on?'1':'0');}catch(e){}}
