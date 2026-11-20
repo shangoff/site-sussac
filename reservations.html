@@ -433,6 +433,15 @@
   </div>
 </section>
 
+<style id="dispo-css">
+  .dispo-btn{background:#8B5E7C;color:#fff;border:none;border-radius:10px;padding:11px 18px;font-weight:600;font-size:15px;cursor:pointer;font-family:inherit}
+  .dispo-btn:hover{background:#6E4661}
+  .dispo-result{margin-top:10px;padding:11px 14px;border-radius:10px;font-size:14.5px;line-height:1.5;display:block}
+  .dispo-result[hidden]{display:none}
+  .dispo-result.ok{background:#E3EFDC;border:1px solid #B9D3A8;color:#2A4124}
+  .dispo-result.busy{background:#F4E0E6;border:1px solid #E0B9C8;color:#6E4661}
+  .dispo-result.warn{background:#F5EFE0;border:1px solid #E0D4B0;color:#6B5D2F}
+</style>
 <!-- ========== FORMULAIRE DE DEMANDE (Netlify Forms) ========== -->
 <section class="section book" id="reserver">
   <div class="wrap">
@@ -464,6 +473,10 @@
         <div class="fld">
           <label for="depart">Date de départ</label>
           <input id="depart" name="Date de départ" type="date" required>
+        </div>
+        <div class="fld full">
+          <button type="button" class="dispo-btn" id="checkDispo">Vérifier la disponibilité</button>
+          <p class="dispo-result" id="dispoResult" hidden></p>
         </div>
         <div class="fld">
           <label for="pers">Nombre de personnes</label>
@@ -590,6 +603,26 @@ function preselect(name){
     .then(function(r){return r.json();})
     .then(function(data){ RESAS=(data&&data.reservations)||[]; renderCal(); })
     .catch(function(){ RESAS=[]; renderCal(); });
+
+  // ----- Vérificateur de disponibilité -----
+  var checkBtn=document.getElementById('checkDispo');
+  if(checkBtn){
+    checkBtn.addEventListener('click',function(){
+      var g=document.getElementById('gite').value;
+      var a=document.getElementById('arrivee').value;
+      var d=document.getElementById('depart').value;
+      var res=document.getElementById('dispoResult');
+      res.hidden=false;
+      function show(cls,html){ res.className='dispo-result '+cls; res.innerHTML=html; }
+      if(!g || GITES_NOMS.indexOf(g)<0){ show('warn','Choisissez d\u2019abord un g\u00eete pr\u00e9cis ci-dessus.'); return; }
+      if(!a||!d){ show('warn','Indiquez vos dates d\u2019arriv\u00e9e et de d\u00e9part.'); return; }
+      if(d<=a){ show('warn','La date de d\u00e9part doit \u00eatre apr\u00e8s la date d\u2019arriv\u00e9e.'); return; }
+      var gi=GITES_NOMS.indexOf(g); if(gi>=0){ current=gi; renderTabs(); renderCal(); }
+      var conflict=RESAS.some(function(r){ if(r.gite!==g||!r.arrivee||!r.depart) return false; return a<=r.depart && d>=r.arrivee; });
+      if(conflict){ show('busy','\u2717 Ces dates sont <strong>d\u00e9j\u00e0 r\u00e9serv\u00e9es</strong> pour ce g\u00eete. Regardez le calendrier ci-dessus et essayez d\u2019autres dates.'); }
+      else { show('ok','\u2713 <strong>Dates disponibles\u00a0!</strong> Vous pouvez envoyer votre demande ci-dessous\u00a0\u2014 la mairie confirmera.'); }
+    });
+  }
 })();
 </script>
 
