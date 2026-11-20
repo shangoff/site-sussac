@@ -488,6 +488,28 @@
   </div>
 </section>
 
+<!-- ============ ACTUALITÉS ============ -->
+
+<div class="note"></div>
+<section class="section mairie" id="actualites">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Actualités</span>
+      <h2>La vie de la commune</h2>
+      <p>Les dernières nouvelles du bourg.</p>
+    </div>
+    <div class="news" id="news-list"></div>
+
+    <div class="agenda reveal">
+      <div class="agenda-head">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+        <h3>Agenda</h3>
+      </div>
+      <div id="agenda-list"></div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ CHIFFRES ============ -->
 <section class="section facts" id="carte">
   <div class="wrap">
@@ -672,27 +694,7 @@
   </div>
 </section>
 
-<!-- ============ ACTUALITÉS ============ -->
 
-<div class="note"></div>
-<section class="section mairie" id="actualites">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Actualités</span>
-      <h2>La vie de la commune</h2>
-      <p>Les dernières nouvelles du bourg.</p>
-    </div>
-    <div class="news" id="news-list"></div>
-
-    <div class="agenda reveal">
-      <div class="agenda-head">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
-        <h3>Agenda</h3>
-      </div>
-      <div id="agenda-list"></div>
-    </div>
-  </div>
-</section>
 
 <!-- ============ CONTACT ============ -->
 <section class="section contact" id="contact">
@@ -869,6 +871,13 @@
     });
     menu.querySelectorAll('a').forEach(function(a){
       a.addEventListener('click',function(){ menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); });
+    });
+    menu.querySelectorAll('.nav-sub-toggle').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var item=btn.parentElement;
+        var open=item.classList.toggle('open');
+        btn.setAttribute('aria-expanded',open);
+      });
     });
   }
 
