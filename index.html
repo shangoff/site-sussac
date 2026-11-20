@@ -361,6 +361,25 @@
   .hero-inner{padding-left:26px;padding-right:26px}
   @media(max-width:600px){.hero-inner{padding-top:60px;padding-bottom:140px;padding-left:20px;padding-right:20px}.hero h1{font-size:clamp(34px,8vw,50px);overflow-wrap:break-word}.hero .lede{font-size:17px}}
 </style>
+<style id="actu-agenda-v2">
+  .news .post.feat{grid-column:1 / -1;flex-direction:row;padding:0;overflow:hidden;align-items:stretch;gap:0}
+  .news .post.feat .feat-img{flex:0 0 42%;max-width:440px;background:#F3F1EA;display:flex;align-items:center;justify-content:center}
+  .news .post.feat .feat-img img{width:100%;height:100%;max-height:330px;object-fit:contain;padding:16px;display:block}
+  .news .post.feat .feat-body{padding:30px 34px;display:flex;flex-direction:column;justify-content:center;flex:1}
+  .news .post.feat.nopic .feat-body{padding:34px 38px}
+  .news .post.feat h3{font-size:27px;font-family:var(--f-display);font-weight:600;line-height:1.12;margin:10px 0 12px}
+  .news .post.feat p{font-size:16px;color:var(--ink-soft)}
+  .post-img{width:100%;height:172px;object-fit:contain;background:#F3F1EA;border-radius:10px;margin-bottom:12px;padding:8px}
+  @media(max-width:700px){
+    .news .post.feat{flex-direction:column}
+    .news .post.feat .feat-img{flex:none;max-width:none;width:100%}
+    .news .post.feat .feat-img img{height:210px;max-height:210px}
+    .news .post.feat h3{font-size:23px}
+  }
+  .ev .when{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--forest);color:#fff;border-radius:12px;padding:9px 6px;min-width:60px;font-family:var(--f-body);line-height:1}
+  .ev .when .d{font-size:24px;font-weight:700}
+  .ev .when .mo{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;margin-top:3px;opacity:.92}
+</style>
 </head>
 <body>
 <a class="skip" href="#contenu">Aller au contenu</a>
@@ -625,7 +644,7 @@
       </article>
 
       <article class="tile reveal">
-        <div class="images"><img src="images/city-stade-1.jpg" style=""height:320px;width:450px;object-fit:cover></div>
+        <div class="img"><img src="images/city-stade.jpg" style="height:320px;width: 450px;object-fit: cover"></div>
         <div class="tile-body"><span class="eyebrow">Équipement</span><h3>Le city-stade</h3><p>Nouvel espace multisport pour les jeunes et les familles, aménagé avec le soutien du Département et de l'Agence nationale du sport.</p></div>
       </article>
 
@@ -944,23 +963,31 @@ function flWeather(){
       var a=(d&&d.actualites)||[];
       a.sort(function(x,y){return String(y.date||'').localeCompare(String(x.date||''));});
       if(!a.length){ nl.innerHTML='<p style="color:var(--ink-soft)">Aucune actualité pour le moment.</p>'; return; }
-      nl.innerHTML=a.slice(0,6).map(function(it){
-        var img=it.image?'<img src="'+esc(it.image)+'" alt="" style="width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:12px">':'';
+      nl.innerHTML=a.slice(0,5).map(function(it,ix){
         var dte=frDate(it.date);
-        return '<article class="post">'+img+(dte?'<span class="date">'+esc(dte)+'</span>':'')+'<h3>'+esc(it.titre)+'</h3><p>'+esc(it.texte)+'</p>'+(it.categorie?'<span class="tag">'+esc(it.categorie)+'</span>':'')+'</article>';
+        var dat=dte?'<span class="date">'+esc(dte)+'</span>':'';
+        var tag=it.categorie?'<span class="tag">'+esc(it.categorie)+'</span>':'';
+        if(ix===0){
+          var fimg=it.image?'<div class="feat-img"><img src="'+esc(it.image)+'" alt=""></div>':'';
+          return '<article class="post feat'+(it.image?'':' nopic')+'">'+fimg+'<div class="feat-body">'+dat+'<h3>'+esc(it.titre)+'</h3><p>'+esc(it.texte)+'</p>'+tag+'</div></article>';
+        }
+        var img=it.image?'<img class="post-img" src="'+esc(it.image)+'" alt="">':'';
+        return '<article class="post">'+img+dat+'<h3>'+esc(it.titre)+'</h3><p>'+esc(it.texte)+'</p>'+tag+'</article>';
       }).join('');
     }).catch(function(){ nl.innerHTML='<p style="color:var(--ink-soft)">Actualités momentanément indisponibles.</p>'; });
   }
+
   var al=document.getElementById('agenda-list');
   if(al){
+    var MOIS_AB=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
     fetch('content/agenda.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
       var e=(d&&d.evenements)||[];
       e.sort(function(x,y){ return String(x.date||'9999').localeCompare(String(y.date||'9999')); });
       if(!e.length){ al.innerHTML='<p style="color:var(--ink-soft);padding:4px 2px">Aucun événement prévu.</p>'; return; }
       al.innerHTML=e.slice(0,6).map(function(it){
-        var jm='—'; if(it.date){ var p=String(it.date).split('-'); if(p.length>=3) jm=p[2]+'/'+p[1]; }
+        var dd='—', mo=''; if(it.date){ var pp=String(it.date).split('-'); if(pp.length>=3){ dd=String(parseInt(pp[2],10)); mo=MOIS_AB[parseInt(pp[1],10)-1]||''; } }
         var sub=[]; if(it.heure)sub.push(esc(it.heure)); if(it.details)sub.push(esc(it.details));
-        return '<div class="ev"><div class="when"><b>'+jm+'</b></div><div class="what"><strong>'+esc(it.titre)+'</strong>'+(sub.length?'<span>'+sub.join(' · ')+'</span>':'')+'</div><div class="place">'+esc(it.lieu||'')+'</div></div>';
+        return '<div class="ev"><div class="when"><span class="d">'+dd+'</span><span class="mo">'+mo+'</span></div><div class="what"><strong>'+esc(it.titre)+'</strong>'+(sub.length?'<span>'+sub.join(' · ')+'</span>':'')+'</div>'+(it.lieu?'<div class="place">'+esc(it.lieu)+'</div>':'')+'</div>';
       }).join('');
     }).catch(function(){ al.innerHTML='<p style="color:var(--ink-soft);padding:4px 2px">Agenda momentanément indisponible.</p>'; });
   }

@@ -10,6 +10,15 @@
       "financement": "Financement : commune + Département + DRAC / État — à préciser (montants, subventions)."
     },
     {
+      "titre": "Église Saint-Pardoux-Saint-Martin",
+      "statut": "À venir",
+      "meta": "Patrimoine · programmé",
+      "description": "Consolidation, restauration de la nef, assainissement extérieur général.",
+      "avancement": 0,
+      "intervenant": "",
+      "financement": "Coût estimé : 1 120 000 euros HT."
+    },
+    {
       "titre": "Voirie",
       "statut": "Terminé",
       "meta": "",
