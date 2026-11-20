@@ -15,6 +15,7 @@
   body{font-family:var(--f-body);color:var(--ink);background:var(--paper);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
   a{color:var(--forest-deep)}
   .wrap{max-width:var(--wrap);margin:0 auto;padding:0 26px}
+  img{max-width:100%}
   .eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--heather-deep);display:inline-block}
   h1,h2,h3{font-family:var(--f-display);font-weight:500;line-height:1.1;letter-spacing:-.01em;color:var(--ink)}
 
@@ -537,8 +538,9 @@ function flWeather(){
   </div>
 </div>
 <style>
-  html.a11y-f1{zoom:1.12}
-  html.a11y-f2{zoom:1.25}
+  @media(pointer:fine){html.a11y-f1{zoom:1.12}}
+  @media(pointer:fine){html.a11y-f2{zoom:1.25}}
+  @media(pointer:coarse){.a11y__row{display:none!important}}
   html.a11y-underline a{text-decoration:underline !important}
   html.a11y-contrast, html.a11y-contrast *{background-color:#fff !important;color:#000 !important;border-color:#000 !important}
   html.a11y-contrast a{color:#0033cc !important;text-decoration:underline !important}

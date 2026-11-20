@@ -122,8 +122,9 @@
   </div>
 </div>
 <style>
-  html.a11y-f1{zoom:1.12}
-  html.a11y-f2{zoom:1.25}
+  @media(pointer:fine){html.a11y-f1{zoom:1.12}}
+  @media(pointer:fine){html.a11y-f2{zoom:1.25}}
+  @media(pointer:coarse){.a11y__row{display:none!important}}
   html.a11y-underline a{text-decoration:underline !important}
   html.a11y-contrast, html.a11y-contrast *{background-color:#fff !important;color:#000 !important;border-color:#000 !important}
   html.a11y-contrast a{color:#0033cc !important;text-decoration:underline !important}
